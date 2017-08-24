@@ -19,7 +19,7 @@ namespace fire_business_soe.Models
 
         public IEnumerable<object> Attributes { get; set; }
 
-        [JsonConverter(typeof(RoundingJsonConverter))]
+        [JsonConverter(typeof(RoundingJsonConverter), 4)]
         public double Intersect { get; set; } 
     }
 }
