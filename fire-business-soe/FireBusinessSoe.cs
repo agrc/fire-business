@@ -16,9 +16,6 @@ using fire_business_soe.Encoding;
 using fire_business_soe.Models;
 using Newtonsoft.Json;
 
-//TODO: sign the project (project properties > signing tab > sign the assembly)
-//      this is strongly suggested if the dll will be registered using regasm.exe <your>.dll /codebase
-
 namespace fire_business_soe
 {
     [ComVisible(true)]
@@ -55,12 +52,33 @@ namespace fire_business_soe
             _featureClassIndexMap = new CreateLayerMapCommand(_serverObjectHelper).Execute();
         }
 
+        public string GetSchema()
+        {
+            return _reqHandler.GetSchema();
+        }
+
+        public byte[] HandleRESTRequest(string capabilities, string resourceName, string operationName, string operationInput, string outputFormat,
+            string requestProperties, out string responseProperties)
+        {
+            return _reqHandler.HandleRESTRequest(capabilities, resourceName, operationName, operationInput, outputFormat, requestProperties,
+                out responseProperties);
+        }
+
+        public void Init(IServerObjectHelper pSoh)
+        {
+            _serverObjectHelper = pSoh;
+        }
+
+        public void Shutdown()
+        {
+        }
+
         private RestResource CreateRestSchema()
         {
             var rootRes = new RestResource(_soeName, false, RootResHandler);
 
             var sampleOper = new RestOperation("ExtractIntersections",
-                new[] {"geometry", "criteria"},
+                new[] {"id"},
                 new[] {"json"},
                 ExtractHandler);
 
@@ -90,17 +108,11 @@ namespace fire_business_soe
             responseProperties = null;
             const string methodName = "ExtractIntersection";
             var errors = new ResponseContainer(HttpStatusCode.BadRequest, "");
-            JsonObject jsonGeometry;
-            JsonObject jsonCriteria;
+            double? featureId;
 
-            if (!operationInput.TryGetJsonObject("geometry", out jsonGeometry))
+            if (!operationInput.TryGetAsDouble("id", out featureId) && featureId.HasValue)
             {
-                errors.AddMessage("geometry parameter is required.");
-            }
-
-            if (!operationInput.TryGetJsonObject("criteria", out jsonCriteria))
-            {
-                errors.AddMessage("criteria parameter is required.");
+                errors.AddMessage("The id of the shape is required.");
             }
 
             if (errors.HasErrors)
@@ -111,38 +123,12 @@ namespace fire_business_soe
 #if !DEBUG
             _logger.LogMessage(ServerLogger.msgType.infoStandard, methodName, MessageCode, "Params received");
 #endif
-            var inputGeometry = Conversion.ToGeometry(jsonGeometry, esriGeometryType.esriGeometryPolygon) as IPolygon;
 
-            if (inputGeometry == null)
-            {
-                errors.AddMessage("geometry json is invalid.");
-            }
+            var fireLayerMap = _featureClassIndexMap.First(x => x.LayerName == "Fire Perimeters");
+            var fireLayer = fireLayerMap.FeatureClass;
 
-            var queryCriteria = JsonConvert.DeserializeObject<Dictionary<string, string[]>>(jsonCriteria.ToJson());
-
-            Dictionary<int, IEnumerable<string>> criteria;
-
-            try
-            {
-                criteria = queryCriteria.ToDictionary(key => int.Parse(key.Key), values => values.Value.Select(x => x.ToUpper()));
-            }
-            catch (Exception ex)
-            {
-                errors.AddMessage("could not parse criteria. json is invalid.");
-                errors.AddMessage(ex.Message);
-
-                return Json(errors);
-            }
-
-            if (criteria.Keys.Count > 1)
-            {
-                errors.AddMessage("criteria json is empty and must have values.");
-            }
-
-            if (errors.HasErrors)
-            {
-                return Json(errors);
-            }
+            var perimeterFeature = fireLayer.GetFeature(Convert.ToInt32(featureId.Value));
+            var inputGeometry = perimeterFeature.ShapeCopy;
 
 #if !DEBUG
             _logger.LogMessage(ServerLogger.msgType.infoStandard, methodName, MessageCode, "Params valid");
@@ -159,7 +145,8 @@ namespace fire_business_soe
             filterGeometry.IsKnownSimple_2 = false;
             filterGeometry.Simplify();
 
-            if (((IArea) inputGeometry).Area < 0)
+            var totalArea = ((IArea) inputGeometry).Area;
+            if (totalArea < 0)
             {
                 ((ICurve) inputGeometry).ReverseOrientation();
             }
@@ -170,16 +157,33 @@ namespace fire_business_soe
                 SpatialRel = esriSpatialRelEnum.esriSpatialRelIntersects
             };
 
-            var searchResults = new Dictionary<string, IList<IntersectAttributes>>();
-
-            foreach (var pair in criteria)
+            var searchResults = new Dictionary<string, IList<IntersectAttributes>>
             {
-                var layerIndex = pair.Key;
-                var fields = pair.Value;
+                {"fire", new[]
+                {
+                    new IntersectAttributes(new[]
+                    {
+                        new KeyValuePair<string, object>("total", "total")
+                    })
+                    {
+                        Intersect = totalArea
+                    }
+                }}
+            };
+            var criterias = new List<Criteria>
+            {
+                new Criteria(1, new[] {"NAME"}, "muni"),
+                new Criteria(2, new[] {"NAME"}, "county"),
+                new Criteria(3, new[] {"OWNER"}, "owner"),
+                new Criteria(3, new[] {"ADMIN"}, "admin"),
+                new Criteria(4, new[] {"STATE_NAME"}, "state")
+            };
 
-                var container = _featureClassIndexMap.Single(x => x.Index == layerIndex);
+            foreach (var criteria in criterias)
+            {
+                var container = _featureClassIndexMap.Single(x => x.Index == criteria.LayerIndex);
                 var fieldMap = container.FieldMap.Select(x => x.Value)
-                    .Where(y => fields.Contains(y.Field.ToUpper()))
+                    .Where(y => criteria.Attributes.Contains(y.Field.ToUpper()))
                     .ToList();
 
 #if !DEBUG
@@ -243,23 +247,23 @@ namespace fire_business_soe
                             break;
                     }
 
-                    if (searchResults.ContainsKey(container.LayerName))
+                    if (searchResults.ContainsKey(criteria.JsonPropertyName))
                     {
-                        if (searchResults[container.LayerName].Any(x => new MultiSetComparer<object>().Equals(x.Attributes, attributes.Attributes)))
+                        if (searchResults[criteria.JsonPropertyName].Any(x => new MultiSetComparer<object>().Equals(x.Attributes, attributes.Attributes)))
                         {
-                            var duplicate = searchResults[container.LayerName]
+                            var duplicate = searchResults[criteria.JsonPropertyName]
                                 .Single(x => new MultiSetComparer<object>().Equals(x.Attributes, attributes.Attributes));
 
                             duplicate.Intersect += attributes.Intersect;
                         }
                         else
                         {
-                            searchResults[container.LayerName].Add(attributes);
+                            searchResults[criteria.JsonPropertyName].Add(attributes);
                         }
                     }
                     else
                     {
-                        searchResults[container.LayerName] = new Collection<IntersectAttributes> { attributes };
+                        searchResults[criteria.JsonPropertyName] = new Collection<IntersectAttributes> {attributes};
                     }
                 }
             }
@@ -271,27 +275,6 @@ namespace fire_business_soe
 #endif
 
             return Json(new ResponseContainer<IntersectResult>(response));
-        }
-
-        public void Init(IServerObjectHelper pSoh)
-        {
-            _serverObjectHelper = pSoh;
-        }
-
-        public void Shutdown()
-        {
-        }
-
-        public string GetSchema()
-        {
-            return _reqHandler.GetSchema();
-        }
-
-        public byte[] HandleRESTRequest(string capabilities, string resourceName, string operationName, string operationInput, string outputFormat,
-            string requestProperties, out string responseProperties)
-        {
-            return _reqHandler.HandleRESTRequest(capabilities, resourceName, operationName, operationInput, outputFormat, requestProperties,
-                out responseProperties);
         }
     }
 }

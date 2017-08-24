@@ -82,6 +82,7 @@
     <Compile Include="Converters\RoundingJsonConverter.cs" />
     <Compile Include="Encoding\JsonEndpoint.cs" />
     <Compile Include="FireBusinessSoe.cs" />
+    <Compile Include="Models\Criteria.cs" />
     <Compile Include="Models\FeatureClassIndexMap.cs" />
     <Compile Include="Models\IndexFieldMap.cs" />
     <Compile Include="Models\IntersectAttributes.cs" />
