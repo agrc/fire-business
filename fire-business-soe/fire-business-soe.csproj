@@ -88,6 +88,7 @@
     <Compile Include="Models\FeatureClassIndexMap.cs" />
     <Compile Include="Models\IndexFieldMap.cs" />
     <Compile Include="Models\IntersectAttributes.cs" />
+    <Compile Include="Models\IntersectionPart.cs" />
     <Compile Include="Models\IntersectResult.cs" />
     <Compile Include="Models\ResponseContainer.cs" />
     <Compile Include="Models\SoeErrorable.cs" />

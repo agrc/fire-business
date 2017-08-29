@@ -159,16 +159,18 @@ namespace fire_business_soe
 
             var searchResults = new Dictionary<string, IList<IntersectAttributes>>
             {
-                {"fire", new[]
                 {
-                    new IntersectAttributes(new[]
+                    "fire", new[]
                     {
-                        new KeyValuePair<string, object>("total", "total")
-                    })
-                    {
-                        Intersect = totalArea
+                        new IntersectAttributes(new[]
+                        {
+                            new KeyValuePair<string, object>("total", "total")
+                        })
+                        {
+                            Intersect = totalArea
+                        }
                     }
-                }}
+                }
             };
             var criterias = new List<Criteria>
             {
@@ -181,7 +183,9 @@ namespace fire_business_soe
 
             foreach (var criteria in criterias)
             {
+                // get the IFeatureClass
                 var container = _featureClassIndexMap.Single(x => x.Index == criteria.LayerIndex);
+                // get the index of the fields to calculate intersections for
                 var fieldMap = container.FieldMap.Select(x => x.Value)
                     .Where(y => criteria.Attributes.Contains(y.Field.ToUpper()))
                     .ToList();
@@ -208,44 +212,18 @@ namespace fire_business_soe
                     var gis = (ITopologicalOperator4) inputGeometry;
                     gis.Simplify();
 
-                    IGeometry intersection;
-                    switch (feature.ShapeCopy.GeometryType)
+                    IntersectionPart intersectionPart;
+                    try
                     {
-                        case esriGeometryType.esriGeometryPolygon:
-                            try
-                            {
-                                intersection = gis.Intersect(feature.ShapeCopy, esriGeometryDimension.esriGeometry2Dimension);
-
-                                var area = (IArea) intersection;
-                                attributes.Intersect = Math.Abs(area.Area);
-#if !DEBUG
-                                _logger.LogMessage(ServerLogger.msgType.infoStandard, methodName, MessageCode, string.Format("Area: {0}", area.Area));
-#endif
-                            }
-                            catch (Exception ex)
-                            {
-                                return Json(new ResponseContainer(HttpStatusCode.InternalServerError, ex.Message));
-                            }
-
-                            break;
-                        case esriGeometryType.esriGeometryPolyline:
-                            try
-                            {
-                                intersection = gis.Intersect(feature.ShapeCopy, esriGeometryDimension.esriGeometry1Dimension);
-
-                                var length = (IPolyline5) intersection;
-                                attributes.Intersect = Math.Abs(length.Length);
-#if !DEBUG
-                                _logger.LogMessage(ServerLogger.msgType.infoStandard, methodName, MessageCode, string.Format("Length: {0}", length.Length));
-#endif
-                            }
-                            catch (Exception ex)
-                            {
-                                return Json(new ResponseContainer(HttpStatusCode.InternalServerError, ex.Message));
-                            }
-
-                            break;
+                        intersectionPart = GetIntersectionAndSize(feature, gis);
                     }
+                    catch (Exception ex)
+                    {
+                        return Json(new ResponseContainer(HttpStatusCode.InternalServerError, ex.Message));
+                    }
+
+
+                    attributes.Intersect = intersectionPart.Size;
 
                     if (searchResults.ContainsKey(criteria.JsonPropertyName))
                     {
@@ -275,6 +253,39 @@ namespace fire_business_soe
 #endif
 
             return Json(new ResponseContainer<IntersectResult>(response));
+        }
+
+        private static IntersectionPart GetIntersectionAndSize(IFeature feature, ITopologicalOperator4 gis)
+        {
+            const string methodName = "GetIntersectionAndSize";
+
+            IGeometry intersection;
+            var part = new IntersectionPart();
+            switch (feature.ShapeCopy.GeometryType)
+            {
+                case esriGeometryType.esriGeometryPolygon:
+                    intersection = gis.Intersect(feature.ShapeCopy, esriGeometryDimension.esriGeometry2Dimension);
+
+                    var area = (IArea) intersection;
+                    part.Size = Math.Abs(area.Area);
+                    part.Intersection = intersection;
+#if !DEBUG
+                    _logger.LogMessage(ServerLogger.msgType.infoStandard, methodName, MessageCode, string.Format("Area: {0}", area.Area));
+#endif
+                    break;
+                case esriGeometryType.esriGeometryPolyline:
+                    intersection = gis.Intersect(feature.ShapeCopy, esriGeometryDimension.esriGeometry1Dimension);
+
+                    var length = (IPolyline5) intersection;
+                    part.Size = Math.Abs(length.Length);
+                    part.Intersection = intersection;
+#if !DEBUG
+                    _logger.LogMessage(ServerLogger.msgType.infoStandard, methodName, MessageCode, string.Format("Length: {0}", length.Length));
+#endif
+                    break;
+            }
+
+            return part;
         }
     }
 }
