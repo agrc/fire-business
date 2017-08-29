@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace fire_business_soe.Converters
 {
-    public class ConvertMetersToJsonConverter : JsonConverter
+    public class ConvertMetersToAcresConverter : JsonConverter
     {
         public override bool CanRead
         {

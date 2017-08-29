@@ -79,7 +79,7 @@
     <Compile Include="Commands\GetValueAtIndexCommand.cs" />
     <Compile Include="Commands\UpdateLayerMapWithFieldIndexMapCommand.cs" />
     <Compile Include="Comparers\MultiSetComparer.cs" />
-    <Compile Include="Converters\ConvertMetersToJsonConverter.cs" />
+    <Compile Include="Converters\ConvertMetersToAcresConverter.cs" />
     <Compile Include="Converters\RoundingJsonConverter.cs" />
     <Compile Include="Encoding\JsonEndpoint.cs" />
     <Compile Include="Extensions\DoubleExtensions.cs" />
