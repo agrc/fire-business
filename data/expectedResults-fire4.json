@@ -1,0 +1,137 @@
+{
+ "result": {
+  "attributes": {
+   "fire": [
+    {
+     "attributes": [
+      "total"
+     ],
+     "intersect": 115680.5964
+    }
+   ],
+   "muni": [
+    {
+     "attributes": [
+      "Tooele"
+     ],
+     "intersect": 5196.444263
+    },
+    {
+     "attributes": [
+      "Grantsville"
+     ],
+     "intersect": 5479.465732
+    }
+   ],
+   "muniPrivate": [
+    {
+     "attributes": [
+      "Tooele"
+     ],
+     "intersect": 4210.990918
+    },
+    {
+     "attributes": [
+      "Grantsville"
+     ],
+     "intersect": 1214.690588
+    }
+   ],
+   "county": [
+    {
+     "attributes": [
+      "TOOELE"
+     ],
+     "intersect": 111625.4903
+    },
+    {
+     "attributes": [
+      "SALT LAKE"
+     ],
+     "intersect": 4055.10607
+    }
+   ],
+   "countyPrivate": [
+    {
+     "attributes": [
+      "TOOELE"
+     ],
+     "intersect": 52933.63778
+    },
+    {
+     "attributes": [
+      "SALT LAKE"
+     ],
+     "intersect": 4046.696501
+    }
+   ],
+   "owner": [
+    {
+     "attributes": [
+      "Federal"
+     ],
+     "intersect": 44579.29726
+    },
+    {
+     "attributes": [
+      "Private"
+     ],
+     "intersect": 56980.33427
+    },
+    {
+     "attributes": [
+      "State"
+     ],
+     "intersect": 14120.96484
+    }
+   ],
+   "admin": [
+    {
+     "attributes": [
+      "BLM"
+     ],
+     "intersect": 18805.03707
+    },
+    {
+     "attributes": [
+      "DOD"
+     ],
+     "intersect": 17836.47386
+    },
+    {
+     "attributes": [
+      "USFS"
+     ],
+     "intersect": 7937.786325
+    },
+    {
+     "attributes": [
+      "Private"
+     ],
+     "intersect": 56980.33427
+    },
+    {
+     "attributes": [
+      "FFSL"
+     ],
+     "intersect": 2858.429251
+    },
+    {
+     "attributes": [
+      "SITLA"
+     ],
+     "intersect": 11262.53559
+    }
+   ],
+   "state": [
+    {
+     "attributes": [
+      "Utah"
+     ],
+     "intersect": 115680.5964
+    }
+   ]
+  }
+ },
+ "status": 200
+}

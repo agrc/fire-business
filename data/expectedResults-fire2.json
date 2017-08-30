@@ -1,0 +1,119 @@
+{
+ "result": {
+  "attributes": {
+   "fire": [
+    {
+     "attributes": [
+      "total"
+     ],
+     "intersect": 12335.79019
+    }
+   ],
+   "muni": [
+    {
+     "attributes": [
+      "Wendover"
+     ],
+     "intersect": 2784.244698
+    }
+   ],
+   "muniPrivate": [
+    {
+     "attributes": [
+      "Wendover"
+     ],
+     "intersect": 1324.184982
+    }
+   ],
+   "county": [
+    {
+     "attributes": [
+      "TOOELE"
+     ],
+     "intersect": 8887.807754
+    }
+   ],
+   "countyPrivate": [
+    {
+     "attributes": [
+      "TOOELE"
+     ],
+     "intersect": 2303.970066
+    }
+   ],
+   "owner": [
+    {
+     "attributes": [
+      "Federal"
+     ],
+     "intersect": 4877.333324
+    },
+    {
+     "attributes": [
+      "Private"
+     ],
+     "intersect": 2303.970067
+    },
+    {
+     "attributes": [
+      "State"
+     ],
+     "intersect": 1706.504058
+    }
+   ],
+   "admin": [
+    {
+     "attributes": [
+      "BLM"
+     ],
+     "intersect": 4614.848644
+    },
+    {
+     "attributes": [
+      "DOD"
+     ],
+     "intersect": 262.48468
+    },
+    {
+     "attributes": [
+      "Private"
+     ],
+     "intersect": 2303.970067
+    },
+    {
+     "attributes": [
+      "USP"
+     ],
+     "intersect": 560.253533
+    },
+    {
+     "attributes": [
+      "SITLA"
+     ],
+     "intersect": 1068.28483
+    },
+    {
+     "attributes": [
+      "UDOT"
+     ],
+     "intersect": 77.965696
+    }
+   ],
+   "state": [
+    {
+     "attributes": [
+      "Nevada"
+     ],
+     "intersect": 3447.982628
+    },
+    {
+     "attributes": [
+      "Utah"
+     ],
+     "intersect": 8887.807565
+    }
+   ]
+  }
+ },
+ "status": 200
+}

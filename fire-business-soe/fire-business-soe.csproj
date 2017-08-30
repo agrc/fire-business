@@ -85,6 +85,7 @@
     <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="FireBusinessSoe.cs" />
     <Compile Include="Models\Criteria.cs" />
+    <Compile Include="Models\CriteriaFilter.cs" />
     <Compile Include="Models\FeatureClassIndexMap.cs" />
     <Compile Include="Models\IndexFieldMap.cs" />
     <Compile Include="Models\IntersectAttributes.cs" />

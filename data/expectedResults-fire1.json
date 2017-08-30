@@ -1,0 +1,107 @@
+{
+ "result": {
+  "attributes": {
+   "fire": [
+    {
+     "attributes": [
+      "total"
+     ],
+     "intersect": 5295.484949
+    }
+   ],
+   "muni": [
+    {
+     "attributes": [
+      "Roosevelt"
+     ],
+     "intersect": 39.177591
+    },
+    {
+     "attributes": [
+      "Ballard"
+     ],
+     "intersect": 1023.648899
+    }
+   ],
+   "muniPrivate": [
+    {
+     "attributes": [
+      "Roosevelt"
+     ],
+     "intersect": 39.177591
+    },
+    {
+     "attributes": [
+      "Ballard"
+     ],
+     "intersect": 1023.648899
+    }
+   ],
+   "county": [
+    {
+     "attributes": [
+      "UINTAH"
+     ],
+     "intersect": 2615.10433
+    },
+    {
+     "attributes": [
+      "DUCHESNE"
+     ],
+     "intersect": 2680.380588
+    }
+   ],
+   "countyPrivate": [
+    {
+     "attributes": [
+      "UINTAH"
+     ],
+     "intersect": 1505.46339
+    },
+    {
+     "attributes": [
+      "DUCHESNE"
+     ],
+     "intersect": 2550.406447
+    }
+   ],
+   "owner": [
+    {
+     "attributes": [
+      "Private"
+     ],
+     "intersect": 5118.696327
+    },
+    {
+     "attributes": [
+      "Tribal"
+     ],
+     "intersect": 176.788622
+    }
+   ],
+   "admin": [
+    {
+     "attributes": [
+      "Private"
+     ],
+     "intersect": 5118.696327
+    },
+    {
+     "attributes": [
+      "Tribal"
+     ],
+     "intersect": 176.788622
+    }
+   ],
+   "state": [
+    {
+     "attributes": [
+      "Utah"
+     ],
+     "intersect": 5295.484949
+    }
+   ]
+  }
+ },
+ "status": 200
+}

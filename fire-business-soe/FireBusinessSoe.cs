@@ -172,10 +172,13 @@ namespace fire_business_soe
                     }
                 }
             };
+
             var criterias = new List<Criteria>
             {
                 new Criteria(1, new[] {"NAME"}, "muni"),
+                new Criteria(1, new[] {"NAME"}, "muniPrivate", new CriteriaFilter(3, "OWNER = 'Private'")),
                 new Criteria(2, new[] {"NAME"}, "county"),
+                new Criteria(2, new[] {"NAME"}, "countyPrivate", new CriteriaFilter(3, "OWNER = 'Private'")),
                 new Criteria(3, new[] {"OWNER"}, "owner"),
                 new Criteria(3, new[] {"ADMIN"}, "admin"),
                 new Criteria(4, new[] {"STATE_NAME"}, "state")
@@ -202,9 +205,6 @@ namespace fire_business_soe
                     var values = new GetValueAtIndexCommand(fieldMap, feature).Execute();
                     var attributes = new IntersectAttributes(values);
 
-                    // line over polygon = 1D
-                    // polygon over polygon = 2D
-
 #if !DEBUG
                     _logger.LogMessage(ServerLogger.msgType.infoStandard, methodName, MessageCode,
                         "intersecting " + container.LayerName);
@@ -222,26 +222,78 @@ namespace fire_business_soe
                         return Json(new ResponseContainer(HttpStatusCode.InternalServerError, ex.Message));
                     }
 
-
-                    attributes.Intersect = intersectionPart.Size;
-
-                    if (searchResults.ContainsKey(criteria.JsonPropertyName))
+                    // need to double filter
+                    if (criteria.Filter != null)
                     {
-                        if (searchResults[criteria.JsonPropertyName].Any(x => new MultiSetComparer<object>().Equals(x.Attributes, attributes.Attributes)))
+                        var subFilter = new SpatialFilter
                         {
-                            var duplicate = searchResults[criteria.JsonPropertyName]
-                                .Single(x => new MultiSetComparer<object>().Equals(x.Attributes, attributes.Attributes));
+                            Geometry = intersectionPart.Intersection,
+                            SpatialRel = esriSpatialRelEnum.esriSpatialRelIntersects,
+                            WhereClause = criteria.Filter.WhereClause
+                        };
+                        var subGis = (ITopologicalOperator4)intersectionPart.Intersection;
+                        subGis.Simplify();
 
-                            duplicate.Intersect += attributes.Intersect;
-                        }
-                        else
+                        var filterContainer = _featureClassIndexMap.Single(x => x.Index == criteria.Filter.LayerId);
+                        var filterCursor = filterContainer.FeatureClass.Search(subFilter, true);
+                        IFeature filterFeature;
+                        while ((filterFeature = filterCursor.NextFeature()) != null)
                         {
-                            searchResults[criteria.JsonPropertyName].Add(attributes);
+                            var subAttributes = new IntersectAttributes(values);
+                            IntersectionPart subIntersectionPart;
+                            try
+                            {
+                                subIntersectionPart = GetIntersectionAndSize(filterFeature, subGis);
+                            }
+                            catch (Exception ex)
+                            {
+                                return Json(new ResponseContainer(HttpStatusCode.InternalServerError, ex.Message));
+                            }
+
+                            subAttributes.Intersect = subIntersectionPart.Size;
+
+                            if (searchResults.ContainsKey(criteria.JsonPropertyName))
+                            {
+                                if (searchResults[criteria.JsonPropertyName].Any(x => new MultiSetComparer<object>().Equals(x.Attributes, subAttributes.Attributes)))
+                                {
+                                    var duplicate = searchResults[criteria.JsonPropertyName]
+                                        .Single(x => new MultiSetComparer<object>().Equals(x.Attributes, subAttributes.Attributes));
+
+                                    duplicate.Intersect += subAttributes.Intersect;
+                                }
+                                else
+                                {
+                                    searchResults[criteria.JsonPropertyName].Add(subAttributes);
+                                }
+                            }
+                            else
+                            {
+                                searchResults[criteria.JsonPropertyName] = new Collection<IntersectAttributes> { subAttributes };
+                            }
                         }
                     }
                     else
                     {
-                        searchResults[criteria.JsonPropertyName] = new Collection<IntersectAttributes> {attributes};
+                        attributes.Intersect = intersectionPart.Size;
+
+                        if (searchResults.ContainsKey(criteria.JsonPropertyName))
+                        {
+                            if (searchResults[criteria.JsonPropertyName].Any(x => new MultiSetComparer<object>().Equals(x.Attributes, attributes.Attributes)))
+                            {
+                                var duplicate = searchResults[criteria.JsonPropertyName]
+                                    .Single(x => new MultiSetComparer<object>().Equals(x.Attributes, attributes.Attributes));
+
+                                duplicate.Intersect += attributes.Intersect;
+                            }
+                            else
+                            {
+                                searchResults[criteria.JsonPropertyName].Add(attributes);
+                            }
+                        }
+                        else
+                        {
+                            searchResults[criteria.JsonPropertyName] = new Collection<IntersectAttributes> {attributes};
+                        }
                     }
                 }
             }
@@ -257,6 +309,9 @@ namespace fire_business_soe
 
         private static IntersectionPart GetIntersectionAndSize(IFeature feature, ITopologicalOperator4 gis)
         {
+            // line over polygon = 1D
+            // polygon over polygon = 2D
+
             const string methodName = "GetIntersectionAndSize";
 
             IGeometry intersection;

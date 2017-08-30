@@ -1,0 +1,113 @@
+{
+ "result": {
+  "attributes": {
+   "fire": [
+    {
+     "attributes": [
+      "total"
+     ],
+     "intersect": 36039.73372
+    }
+   ],
+   "muni": [
+    {
+     "attributes": [
+      "St. George"
+     ],
+     "intersect": 5644.099411
+    },
+    {
+     "attributes": [
+      "Washington"
+     ],
+     "intersect": 2155.483883
+    }
+   ],
+   "muniPrivate": [
+    {
+     "attributes": [
+      "St. George"
+     ],
+     "intersect": 4938.159927
+    },
+    {
+     "attributes": [
+      "Washington"
+     ],
+     "intersect": 1110.008082
+    }
+   ],
+   "county": [
+    {
+     "attributes": [
+      "WASHINGTON"
+     ],
+     "intersect": 24520.28842
+    }
+   ],
+   "countyPrivate": [
+    {
+     "attributes": [
+      "WASHINGTON"
+     ],
+     "intersect": 8902.418057
+    }
+   ],
+   "owner": [
+    {
+     "attributes": [
+      "Federal"
+     ],
+     "intersect": 11205.1533
+    },
+    {
+     "attributes": [
+      "Private"
+     ],
+     "intersect": 8902.418188
+    },
+    {
+     "attributes": [
+      "State"
+     ],
+     "intersect": 4412.716752
+    }
+   ],
+   "admin": [
+    {
+     "attributes": [
+      "BLM"
+     ],
+     "intersect": 11205.1533
+    },
+    {
+     "attributes": [
+      "Private"
+     ],
+     "intersect": 8902.418188
+    },
+    {
+     "attributes": [
+      "SITLA"
+     ],
+     "intersect": 4412.716752
+    }
+   ],
+   "state": [
+    {
+     "attributes": [
+      "Arizona"
+     ],
+     "intersect": 11519.4453
+    },
+    {
+     "attributes": [
+      "Utah"
+     ],
+     "intersect": 24520.28842
+    }
+   ]
+  }
+ },
+ "status": 200
+}
