@@ -8,7 +8,7 @@ A module that contains the methods to interact with a database
 
 import pyodbc
 
-sql = "UPDATE [Incident] SET [perimeter] = geometry::STGeomFromText(?, 26912) WHERE esriid = ?"
+sql = 'UPDATE [Incident] SET [perimeter] = geometry::STGeomFromText(?, 26912) WHERE esriid = ?'
 
 
 def store_geometry_for(pk, wkt):
@@ -23,4 +23,4 @@ def store_geometry_for(pk, wkt):
 
     cnxn.commit()
 
-    return (True, )
+    return (True, '')

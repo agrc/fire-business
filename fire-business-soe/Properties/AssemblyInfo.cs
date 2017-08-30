@@ -11,7 +11,7 @@ using ESRI.ArcGIS.SOESupport;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("fire-business-soe")]
-[assembly: AssemblyCopyright("Copyright © 2016")]
+[assembly: AssemblyCopyright("Copyright © 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -37,10 +37,10 @@ using ESRI.ArcGIS.SOESupport;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 [assembly: AddInPackage("fire_business_soe", "06cc3636-8988-46fd-9511-f3e4192187d0",
-    Author = "agrc-arcgis",
-    Company = "Insert Company Name Here",
+    Author = "Steve ",
+    Company = "AGRC",
     Date = "11/17/2016 6:15:36 PM",
-    Description = "Insert SOE package description here",
+    Description = "Extract Fire Perimiter Information",
     TargetProduct = "Server",
     TargetVersion = "10.3",
     Version = "1.0")]

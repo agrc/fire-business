@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 '''
 test_ZipToDatabase
 ----------------------------------
@@ -15,7 +14,7 @@ import arcpy
 import unittest
 
 
-class TestZipToGraphics(unittest.TestCase):
+class TestZipToDatabase(unittest.TestCase):
 
     primary_key = 1
 
