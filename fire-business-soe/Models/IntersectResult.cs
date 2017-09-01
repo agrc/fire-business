@@ -9,6 +9,6 @@ namespace fire_business_soe.Models
             Attributes = attributes;
         }
 
-        public Dictionary<string, IList<IntersectAttributes>> Attributes { get; set; } 
+        public Dictionary<string, IList<IntersectAttributes>> Attributes { get; set; }
     }
 }

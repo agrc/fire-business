@@ -8,12 +8,12 @@ namespace fire_business_soe.Extensions
         {
             try
             {
-                return Math.Round(value * 0.00024710538187021526, 6);
+                return Math.Round(value*0.00024710538187021526, 6);
             }
             catch (Exception)
             {
                 return -1;
             }
-        } 
+        }
     }
 }

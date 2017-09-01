@@ -1,20 +1,21 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using ESRI.ArcGIS.Geodatabase;
+using fire_business_soe.Commands;
 
 namespace fire_business_soe.Models
 {
     public class Criteria
     {
-        public readonly CriteriaFilter Filter;
+        public ICalculateIntersectionCommand CalculationCommand { get; set; }
         public int LayerIndex { get; set; }
         public IEnumerable<string> Attributes { get; set; }
         public string JsonPropertyName { get; set; }
+        public Collection<FeatureClassIndexMap> FeatureClassIndexMap { get; set; }
 
-        public Criteria(int layerIndex, IEnumerable<string> attributes, string jsonPropertyName, CriteriaFilter filter=null)
+        public IntersectionPart GetIntersectionWith(IFeature other)
         {
-            Filter = filter;
-            LayerIndex = layerIndex;
-            Attributes = attributes;
-            JsonPropertyName = jsonPropertyName;
+            return CalculationCommand.Execute(other);
         }
     }
 }

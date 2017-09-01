@@ -19,7 +19,7 @@ namespace fire_business_soe.Models
 
         public IEnumerable<object> Attributes { get; set; }
 
-        [JsonConverter(typeof(ConvertMetersToAcresConverter))]
-        public double Intersect { get; set; } 
+        [JsonConverter(typeof (ConvertMetersToAcresConverter))]
+        public double Intersect { get; set; }
     }
 }

@@ -74,9 +74,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CalculateCountyPrivateCommand.cs" />
+    <Compile Include="Commands\CalculateIntersectionCommand.cs" />
+    <Compile Include="Commands\CalculateMuniPrivateCommand.cs" />
     <Compile Include="Commands\CreateLayerMapCommand.cs" />
     <Compile Include="Commands\FindIndexByFieldNameCommand.cs" />
     <Compile Include="Commands\GetValueAtIndexCommand.cs" />
+    <Compile Include="Commands\ICalculateIntersectionCommand.cs" />
     <Compile Include="Commands\UpdateLayerMapWithFieldIndexMapCommand.cs" />
     <Compile Include="Comparers\MultiSetComparer.cs" />
     <Compile Include="Converters\ConvertMetersToAcresConverter.cs" />
@@ -85,7 +89,6 @@
     <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="FireBusinessSoe.cs" />
     <Compile Include="Models\Criteria.cs" />
-    <Compile Include="Models\CriteriaFilter.cs" />
     <Compile Include="Models\FeatureClassIndexMap.cs" />
     <Compile Include="Models\IndexFieldMap.cs" />
     <Compile Include="Models\IntersectAttributes.cs" />

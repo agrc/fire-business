@@ -56,7 +56,8 @@ namespace fire_business_soe.Commands
 
             _defaultMapName = mapServer.DefaultMapName;
 #if !DEBUG
-            _logger.LogMessage(ServerLogger.msgType.infoStandard, "CreateLayerMapCommand.Execute", MessageCode, string.Format("default map name: {0}", _defaultMapName));
+            _logger.LogMessage(ServerLogger.msgType.infoStandard, "CreateLayerMapCommand.Execute", MessageCode,
+                string.Format("default map name: {0}", _defaultMapName));
 #endif
             var layerInfos = mapServer.GetServerInfo(_defaultMapName).MapLayerInfos;
 
@@ -66,7 +67,8 @@ namespace fire_business_soe.Commands
             {
                 var layerInfo = layerInfos.Element[i];
 #if !DEBUG
-                _logger.LogMessage(ServerLogger.msgType.infoStandard, "CreateLayerMapCommand.Execute", MessageCode, string.Format("layerInfo name: {0}", layerInfo.Name));
+                _logger.LogMessage(ServerLogger.msgType.infoStandard, "CreateLayerMapCommand.Execute", MessageCode,
+                    string.Format("layerInfo name: {0}", layerInfo.Name));
 #endif
                 if (layerInfo.IsComposite)
                 {
@@ -91,7 +93,8 @@ namespace fire_business_soe.Commands
             }
 
 #if !DEBUG
-            _logger.LogMessage(ServerLogger.msgType.error, "CreateLayerMapCommand.GetFeatureClassFromMap", MessageCode, string.Format("featureclass cannot be null: {0}", layerIndex));
+            _logger.LogMessage(ServerLogger.msgType.error, "CreateLayerMapCommand.GetFeatureClassFromMap", MessageCode,
+                string.Format("featureclass cannot be null: {0}", layerIndex));
 #endif
             throw new NullReferenceException("FeatureClass cannot be null");
         }
