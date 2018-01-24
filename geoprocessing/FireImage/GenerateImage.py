@@ -29,7 +29,7 @@ def main(project_id, width, height):
     ymax = None
 
     for l in feature_layers:
-        l.definitionQuery = 'esriid = {}'.format(project_id)
+        l.definitionQuery = 'id = {}'.format(project_id)
         extent = l.getExtent()
         if xmin is None or isnan(xmin) or extent.XMin < xmin:
             xmin = extent.XMin
