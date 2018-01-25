@@ -31,7 +31,7 @@ namespace fire_business_soe
         SupportsSOAP = false)]
     public class FireBusinessSoe : JsonEndpoint, IServerObjectExtension, IObjectConstruct, IRESTRequestHandler
     {
-        private const string Version = "1.0.0";
+        private const string Version = "1.0.2";
         private static ServerLogger _logger;
         private static Collection<FeatureClassIndexMap> _featureClassIndexMap;
         private readonly IRESTRequestHandler _reqHandler;
@@ -180,57 +180,57 @@ namespace fire_business_soe
             {
                 new Criteria
                 {
-                    LayerIndex = 1,
+                    LayerIndex = _featureClassIndexMap.First(x => x.LayerName == "Municipalities").Index,
                     Attributes = new[] {"NAME"},
                     JsonPropertyName = "muni",
                     CalculationCommand = new CalculateIntersectionCommand(whole, _logger)
                 },
                 new Criteria
                 {
-                    LayerIndex = 1,
+                    LayerIndex = _featureClassIndexMap.First(x => x.LayerName == "Municipalities").Index,
                     FeatureClassIndexMap = _featureClassIndexMap,
                     Attributes = new[] {"NAME"},
                     JsonPropertyName = "muniPrivate",
                     CalculationCommand = new CalculateMuniPrivateCommand(whole, _logger)
                     {
-                        LandOwnership = _featureClassIndexMap.Single(x => x.Index == 3)
+                        LandOwnership = _featureClassIndexMap.Single(x => x.LayerName == "LandOwnership")
                     }
                 },
                 new Criteria
                 {
-                    LayerIndex = 2,
+                    LayerIndex = _featureClassIndexMap.First(x => x.LayerName == "Counties").Index,
                     Attributes = new[] {"NAME"},
                     JsonPropertyName = "county",
                     CalculationCommand = new CalculateIntersectionCommand(whole, _logger)
                 },
                 new Criteria
                 {
-                    LayerIndex = 2,
+                    LayerIndex = _featureClassIndexMap.First(x => x.LayerName == "Counties").Index,
                     Attributes = new[] {"NAME"},
                     JsonPropertyName = "countyPrivate",
                     CalculationCommand = new CalculateCountyPrivateCommand(whole, _logger)
                     {
-                        LandOwnership = _featureClassIndexMap.Single(x => x.Index == 3),
-                        Municipalities = _featureClassIndexMap.Single(x => x.Index == 1)
+                        LandOwnership = _featureClassIndexMap.Single(x => x.LayerName == "LandOwnership"),
+                        Municipalities = _featureClassIndexMap.First(x => x.LayerName == "Municipalities")
                     }
                 },
                 new Criteria
                 {
-                    LayerIndex = 3,
+                    LayerIndex = _featureClassIndexMap.Single(x => x.LayerName == "LandOwnership").Index,
                     Attributes = new[] {"OWNER"},
                     JsonPropertyName = "owner",
                     CalculationCommand = new CalculateIntersectionCommand(whole, _logger)
                 },
                 new Criteria
                 {
-                    LayerIndex = 3,
+                    LayerIndex = _featureClassIndexMap.Single(x => x.LayerName == "LandOwnership").Index,
                     Attributes = new[] {"ADMIN"},
                     JsonPropertyName = "admin",
                     CalculationCommand = new CalculateIntersectionCommand(whole, _logger)
                 },
                 new Criteria
                 {
-                    LayerIndex = 4,
+                    LayerIndex = _featureClassIndexMap.Single(x => x.LayerName == "USStates").Index,
                     Attributes = new[] {"STATE_NAME"},
                     JsonPropertyName = "state",
                     CalculationCommand = new CalculateIntersectionCommand(whole, _logger)

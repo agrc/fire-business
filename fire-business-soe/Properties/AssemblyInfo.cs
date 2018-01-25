@@ -36,8 +36,8 @@ using ESRI.ArcGIS.SOESupport;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.1.0")]
+[assembly: AssemblyFileVersion("1.0.1.0")]
 [assembly: AddInPackage("fire_business_soe", "06cc3636-8988-46fd-9511-f3e4192187d0",
     Author = "Steve ",
     Company = "AGRC",
