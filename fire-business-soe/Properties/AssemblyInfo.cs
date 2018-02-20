@@ -45,4 +45,4 @@ using ESRI.ArcGIS.SOESupport;
     Description = "Extract Fire Perimiter Information",
     TargetProduct = "Server",
     TargetVersion = "10.3",
-    Version = "1.0.1")]
+    Version = "1.0.3")]

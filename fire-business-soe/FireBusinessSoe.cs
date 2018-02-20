@@ -31,7 +31,7 @@ namespace fire_business_soe
         SupportsSOAP = false)]
     public class FireBusinessSoe : JsonEndpoint, IServerObjectExtension, IObjectConstruct, IRESTRequestHandler
     {
-        private const string Version = "1.0.2";
+        private const string Version = "1.0.3";
         private static ServerLogger _logger;
         private static Collection<FeatureClassIndexMap> _featureClassIndexMap;
         private readonly IRESTRequestHandler _reqHandler;
@@ -124,7 +124,7 @@ namespace fire_business_soe
             _logger.LogMessage(ServerLogger.msgType.infoStandard, methodName, MessageCode, "Params received");
 #endif
 
-            var fireLayerMap = _featureClassIndexMap.First(x => x.LayerName == "Fire Perimeters");
+            var fireLayerMap = _featureClassIndexMap.First(x => x.LayerName == "Fire Perimeter");
             var fireLayer = fireLayerMap.FeatureClass;
 
             var perimeterFeature = fireLayer.GetFeature(Convert.ToInt32(featureId.Value));
@@ -180,57 +180,57 @@ namespace fire_business_soe
             {
                 new Criteria
                 {
-                    LayerIndex = _featureClassIndexMap.First(x => x.LayerName == "Municipalities").Index,
+                    LayerIndex = _featureClassIndexMap.First(x => x.LayerName == "Municipal Boundary").Index,
                     Attributes = new[] {"NAME"},
                     JsonPropertyName = "muni",
                     CalculationCommand = new CalculateIntersectionCommand(whole, _logger)
                 },
                 new Criteria
                 {
-                    LayerIndex = _featureClassIndexMap.First(x => x.LayerName == "Municipalities").Index,
+                    LayerIndex = _featureClassIndexMap.First(x => x.LayerName == "Municipal Boundary").Index,
                     FeatureClassIndexMap = _featureClassIndexMap,
                     Attributes = new[] {"NAME"},
                     JsonPropertyName = "muniPrivate",
                     CalculationCommand = new CalculateMuniPrivateCommand(whole, _logger)
                     {
-                        LandOwnership = _featureClassIndexMap.Single(x => x.LayerName == "LandOwnership")
+                        LandOwnership = _featureClassIndexMap.Single(x => x.LayerName == "Land Ownership")
                     }
                 },
                 new Criteria
                 {
-                    LayerIndex = _featureClassIndexMap.First(x => x.LayerName == "Counties").Index,
+                    LayerIndex = _featureClassIndexMap.First(x => x.LayerName == "County Boundary").Index,
                     Attributes = new[] {"NAME"},
                     JsonPropertyName = "county",
                     CalculationCommand = new CalculateIntersectionCommand(whole, _logger)
                 },
                 new Criteria
                 {
-                    LayerIndex = _featureClassIndexMap.First(x => x.LayerName == "Counties").Index,
+                    LayerIndex = _featureClassIndexMap.First(x => x.LayerName == "County Boundary").Index,
                     Attributes = new[] {"NAME"},
                     JsonPropertyName = "countyPrivate",
                     CalculationCommand = new CalculateCountyPrivateCommand(whole, _logger)
                     {
-                        LandOwnership = _featureClassIndexMap.Single(x => x.LayerName == "LandOwnership"),
-                        Municipalities = _featureClassIndexMap.First(x => x.LayerName == "Municipalities")
+                        LandOwnership = _featureClassIndexMap.Single(x => x.LayerName == "Land Ownership"),
+                        Municipalities = _featureClassIndexMap.First(x => x.LayerName == "Municipal Boundary")
                     }
                 },
                 new Criteria
                 {
-                    LayerIndex = _featureClassIndexMap.Single(x => x.LayerName == "LandOwnership").Index,
+                    LayerIndex = _featureClassIndexMap.Single(x => x.LayerName == "Land Ownership").Index,
                     Attributes = new[] {"OWNER"},
                     JsonPropertyName = "owner",
                     CalculationCommand = new CalculateIntersectionCommand(whole, _logger)
                 },
                 new Criteria
                 {
-                    LayerIndex = _featureClassIndexMap.Single(x => x.LayerName == "LandOwnership").Index,
+                    LayerIndex = _featureClassIndexMap.Single(x => x.LayerName == "Land Ownership").Index,
                     Attributes = new[] {"ADMIN"},
                     JsonPropertyName = "admin",
                     CalculationCommand = new CalculateIntersectionCommand(whole, _logger)
                 },
                 new Criteria
                 {
-                    LayerIndex = _featureClassIndexMap.Single(x => x.LayerName == "USStates").Index,
+                    LayerIndex = _featureClassIndexMap.Single(x => x.LayerName == "States Boundary").Index,
                     Attributes = new[] {"STATE_NAME"},
                     JsonPropertyName = "state",
                     CalculationCommand = new CalculateIntersectionCommand(whole, _logger)
