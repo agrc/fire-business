@@ -39,4 +39,7 @@ You may need to update the script path to the items in the toolbox to match the 
 1. Message Level should be at least `Warning`. This is required to allow error message to be properly displayed from within the app.
 
 **Make sure the mxd and all py files were published**
-The operationaldata.gdb is often missing
+
+1. The operationaldata.gdb is often missing
+1. The mxd needs repair
+1. Database.py is not shipped
