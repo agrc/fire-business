@@ -40,6 +40,7 @@ You may need to update the script path to the items in the toolbox to match the 
 
 **Make sure the mxd and all py files were published**
 
-1. The operationaldata.gdb is often missing
-1. The mxd needs repair
+1. The operationaldata.gdb is often missing and the mxd needs repair
+1. You can copy the gdb and mxd from the firearea's map service
 1. Database.py is not shipped
+1. Verify all requirements.txt dependencies are installed
