@@ -5,13 +5,13 @@
 #### Test Environment
 (_This is using data from a fake fire feature class. It will be more helpful when it is hooked up to a real database._)
 
-- [Image generation and shapefile zip upload](http://test.mapserv.utah.gov/arcgis/rest/services/FireBusinessSystem/FireToolbox/GPServer)
-- [Extract Intersection service](http://test.mapserv.utah.gov/arcgis/rest/services/FireBusinessSystem/FireAreas/MapServer/exts/FireBusinessSoe/ExtractIntersections)
+- [Image generation and shapefile zip upload](http://maps.ffsl.utah.gov/arcgis/rest/services/Staging/FireToolbox/GPServer)
+- [Extract Intersection service](http://maps.ffsl.utah.gov/arcgis/rest/services/Staging/FireAreas/MapServer/exts/FireBusinessSoe/ExtractIntersections)
 - [Example requests and responses](https://gist.github.com/steveoh/42c89e58e1c98c8f7f9d66a4c4dc47d6)
 
 ## Installation
 
-#### Server Object Extension
+### Server Object Extension
 
 1. Run a `Release` build
 1. set **User Environment Variables**
@@ -21,13 +21,14 @@
 1. execute `python soe.py fire-business-soe Release` to upload and update the soe
   - if this is the first publish of the extension, you have to manually upload it and enable it on a map service
 
-#### Geoprocessing Tools
+### Geoprocessing Tools
 
 **Before running Toolbox**
 
-You may need to update the script path to the items in the toolbox to match the path on your machine.
+1. Update the script path to the items in the toolbox
+1. Update/create [db.py](https://github.com/agrc/fire-business/blob/master/geoprocessing/ZipToDatabase/connection/secrets.db.py)
 
-#### Publishing
+### Publishing
 
 1. Run `ZipToDatabase` in ArcMap using `1` and `scripts/ZipToDatabase/tests/data/Poly_WGS.zip` in preparation for publishing.
 1. Run `FireImage` in ArcMap using `1`, `400`, `800` in preparation for publishing.
@@ -41,6 +42,6 @@ You may need to update the script path to the items in the toolbox to match the 
 **Make sure the mxd and all py files were published**
 
 1. The operationaldata.gdb is often missing and the mxd needs repair
-1. You can copy the gdb and mxd from the firearea's map service
-1. Database.py is not shipped
-1. Verify all requirements.txt dependencies are installed
+   - You can copy the gdb and mxd from the firearea's map service
+1. `Database.py` and the `connection` package is not shipped
+1. Verify all [requirements.txt](https://github.com/agrc/fire-business/blob/master/geoprocessing/requirements.txt) dependencies are installed
