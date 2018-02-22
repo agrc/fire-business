@@ -1,0 +1,8 @@
+{
+    "name": "state-campuses.app",
+    "version": "1.0.0",
+    "main": "main",
+    "description": "state-campuses",
+    "homepage": "https://github.com/agrc/",
+    "dojoBuild": "app.profile.js"
+}

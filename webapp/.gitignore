@@ -1,0 +1,10 @@
+.DS_Store
+.grunt/
+*.odc
+*.pyc
+*.sde
+deploy/
+dist/
+node_modules/
+secrets.js
+src/

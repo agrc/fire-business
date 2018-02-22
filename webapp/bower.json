@@ -1,0 +1,19 @@
+{
+  "name": "fbs",
+  "version": "1.0.0",
+  "dependencies": {
+    "esri": "arcgis-js-api#~3.22.0",
+    "layer-selector": "agrc-layer-selector#~1.1.1"
+  },
+  "resolutions": {
+    "dgrid1": "0.3.17/esri-3.20.0",
+    "dijit": "v1.12.2/esri-3.21.0",
+    "dojo": "v1.12.2/esri-3.22.0",
+    "dojox": "v1.12.2/esri-3.21.0",
+    "dstore": "1.1.2",
+    "esri": "~3.22.0",
+    "util": "v1.12.2/esri-3.22.0",
+    "xstyle": "0.3.2",
+    "dgrid": "0.3.17/esri-3.20.0"
+  }
+}

@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Incident Report</title>
+        <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.10.0/build/cssreset/cssreset-min.css" />
+  <link rel="stylesheet" href="app/resources/fbs.css">
+  <link rel="stylesheet" href="app/resources/App.css">
+</head>
+<body>
+    <div id="header" class="clearfix">
+        <div class="bar"></div>
+        <div class="logo"></div>
+        <div class="navigation clearfix"><div id="j_idt15:j_idt14" class="ui-outputpanel ui-widget">
+                <div><a data-key="incidents" class="warn" href="/fire/incidents/incidents.xhtml">Incidents</a></div>
+                <div> | <a data-key="search" class="warn" href="/fire/search.xhtml">Search</a></div>
+                <div> | <a data-key="irwin-management" class="warn" href="/fire/incidents/irwinManagement.xhtml">IRWIN</a></div></div>
+
+        </div>
+        <div class="user-info">
+            <div><b>Steve Gourley</b></div>
+            <div><a class="warn" href="/fire/logout.xhtml">Logout</a></div>
+        </div>
+    </div>
+    <hr />
+        <div id="page-title" class="clearfix">
+            <div class="left">Incident Report: George Smith</div>
+            <div class="right"></div>
+        </div>
+        <div id="content">
+          <form id="incident-form" name="incident-form" method="post" action="/fire/incidents/tab-location.xhtml" enctype="application/x-www-form-urlencoded">
+            <input type="hidden" name="incident-form" value="incident-form" />
+            <div class="clearfix">
+                <div class="icon-actions" style="float: right; padding-right: 10px;">
+                    <a href="/fire/incidents/incident-pdf.xhtml?id=7438">print</a>
+                    <a class="text" href="/fire/incidents/incident-pdf.xhtml?id=7438">Print</a>
+                </div>
+            </div>
+            <div class="clearfix">
+
+                <div id="incident-tabs" class="vertical-tabs">
+                    <div data-key="incident">
+                        <a class="warn" href="/fire/incidents/tab-incident.xhtml?incidentId=7438">Incident</a>
+                    </div>
+
+                    <div data-key="location">
+                        <a class="warn" href="/fire/incidents/tab-location.xhtml?incidentId=7438">Location</a>
+                    </div>
+
+                    <div data-key="administration">
+                        <a class="warn" href="/fire/incidents/tab-administration.xhtml?incidentId=7438">Administration</a>
+                    </div>
+
+                    <div data-key="incidentDetail">
+                        <a class="warn" href="/fire/incidents/tab-incidentDetail.xhtml?incidentId=7438">Incident Detail</a>
+                    </div>
+
+                    <div data-key="ownership">
+                        <a class="warn" href="/fire/incidents/tab-ownership.xhtml?incidentId=7438">Ownership</a>
+                    </div>
+
+                    <div data-key="fuelType">
+                        <a class="warn" href="/fire/incidents/tab-fuelType.xhtml?incidentId=7438">Fuel Group</a>
+                    </div>
+
+                    <div data-key="suppression-cost">
+                        <a class="warn" href="/fire/incidents/tab-suppression-cost.xhtml?incidentId=7438">Suppression Cost</a>
+                    </div>
+
+                    <div data-key="investigation">
+                        <a class="warn" href="/fire/incidents/tab-incidentInvestigation.xhtml?incidentId=7438">Investigation</a>
+                    </div>
+
+                    <!--&lt;div data-key=&quot;summary&quot;&gt;-->
+                        <!--&lt;a class=&quot;warn&quot; href=&quot;/fire/incidents/tab-summary.xhtml?incidentId=7438&quot;&gt;Summary&lt;/a&gt;-->
+                    <!--&lt;/div&gt;-->
+                        <div data-key="irwin">
+                            <a class="warn" href="/fire/incidents/tab-irwin.xhtml?incidentId=7438">IRWIN</a>
+                        </div>
+
+                    <div data-key="changeLog">
+                        <a class="warn" href="/fire/incidents/tab-changeLog.xhtml?incidentId=7438">Change Log</a>
+                    </div>
+
+                </div>
+
+                <div id="incident-report"><div id="incident-form:panel" class="ui-panel ui-widget ui-widget-content ui-corner-all" style="border: hidden" data-widget="widget_incident_form_panel"><div id="incident-form:panel_content" class="ui-panel-content ui-widget-content"><table id="incident-form:j_idt73" class="ui-panelgrid ui-widget form" role="grid"><tbody><tr class="ui-widget-content ui-panelgrid-even" role="row">
+                  <td role="gridcell" class="ui-panelgrid-cell">
+                    <label for="incident-form:pooLatitude">POO Latitude</label>
+                  </td>
+                  <td role="gridcell" class="ui-panelgrid-cell">
+                    <input id="incident-form:pooLatitude" name="incident-form:pooLatitude" type="text" value="42.93583" disabled="disabled" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all ui-state-disabled" />
+                  </td>
+                </tr>
+                <tr class="ui-widget-content ui-panelgrid-odd" role="row">
+                  <td role="gridcell" class="ui-panelgrid-cell">
+                    <label for="incident-form:pooLongitude">POO Longitude</label>
+                  </td>
+                  <td role="gridcell" class="ui-panelgrid-cell">
+                    <input id="incident-form:pooLongitude" name="incident-form:pooLongitude" type="text" value="-114.45917" disabled="disabled" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all ui-state-disabled" />
+                  </td>
+                </tr>
+                <tr class="ui-widget-content ui-panelgrid-even" role="row">
+                  <td role="gridcell" class="ui-panelgrid-cell">
+                    <label for="incident-form:stateId">State</label>
+                  </td>
+                  <td role="gridcell" class="ui-panelgrid-cell">
+                    <div id="incident-form:stateId" class="ui-selectonemenu ui-widget ui-state-default ui-corner-all ui-state-disabled">
+                      <div class="ui-helper-hidden-accessible">
+                        <input id="incident-form:stateId_focus" name="incident-form:stateId_focus" type="text" autocomplete="off" disabled="disabled" />
+                      </div>
+                      <div class="ui-helper-hidden-accessible">
+                      </div>
+                    </div>
+                </td>
+              </tr>
+              <tr class="ui-widget-content ui-panelgrid-odd" role="row">
+                <td role="gridcell" class="ui-panelgrid-cell">
+                  <label for="incident-form:countyId">County</label>
+                </td>
+                <td role="gridcell" class="ui-panelgrid-cell">
+                  <div id="incident-form:countyId" class="ui-selectonemenu ui-widget ui-state-default ui-corner-all ui-state-disabled">
+                    <div class="ui-helper-hidden-accessible"><input id="incident-form:countyId_focus" name="incident-form:countyId_focus" type="text" autocomplete="off" disabled="disabled" />
+                    </div>
+                    <div class="ui-helper-hidden-accessible">
+                    </div>
+                    <label id="incident-form:countyId_label" class="ui-selectonemenu-label ui-inputfield ui-corner-all">&nbsp;</label>
+                    <div class="ui-selectonemenu-trigger ui-state-default ui-corner-right">
+                      <span class="ui-icon ui-icon-triangle-1-s ui-c">
+                      </span>
+                    </div>
+                    <div id="incident-form:countyId_panel" class="ui-selectonemenu-panel ui-widget-content ui-corner-all ui-helper-hidden ui-shadow">
+                      <div class="ui-selectonemenu-items-wrapper" style="height:auto">
+                        <ul class="ui-selectonemenu-items ui-selectonemenu-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
+                          <li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="&amp;nbsp;">&nbsp;</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="ui-widget-content ui-panelgrid-even" role="row">
+                <td role="gridcell" class="ui-panelgrid-cell">
+                  <label for="incident-form:municipality">Municipality</label>
+                </td>
+                <td role="gridcell" class="ui-panelgrid-cell">
+                  <input id="incident-form:municipality" name="incident-form:municipality" type="text" disabled="disabled" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all ui-state-disabled" />
+                </td>
+              </tr>
+              <tr class="ui-widget-content ui-panelgrid-odd" role="row">
+                <td role="gridcell" class="ui-panelgrid-cell">
+                  <label for="incident-form:landOwnership">Land Ownership</label>
+                </td>
+                <td role="gridcell" class="ui-panelgrid-cell">
+                  <input id="incident-form:landOwnership" name="incident-form:landOwnership" type="text" disabled="disabled" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all ui-state-disabled" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div data-dojo-type="app/App" id="incident-form:j_idt102"  style="width:100%;height:400px">
+          </div>
+          <script src="secrets.js"></script>
+          <script data-dojo-config="isDebug: 1" src="dojo/dojo.js"></script>
+          <script src="app/packages.js"></script>
+          <script src="app/run.js"></script>
+
+          <button id="incident-form:j_idt105" name="incident-form:j_idt105" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="this.disabled = true;;PrimeFaces.ab({s:'incident-form:j_idt105',u:'incident-form',onst:function(cfg){FIRE.GENERAL.wait('Saving');},onco:function(xhr,status,args){if(!args.validationFailed){FIRE.GENERAL.markSaved();} FIRE.TABS.init(); FIRE.GENERAL.doneWaiting();;}});return false;" type="submit">
+            <span class="ui-button-text ui-c">Save</span>
+          </button>
+                    <a href="/fire/incidents/incidents.xhtml">cancel</a>
+                  </div>
+                </div>
+                <span id="incident-form:growl">
+                </span>
+                </div>
+            </div>
+            <input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="-5026708901328439095:-2259446303326444055" autocomplete="off" />
+          </form>
+        </div>
+    <div id="footer">
+        <div class="bar">
+        </div>
+    </div>
+  </body>
+</html>
