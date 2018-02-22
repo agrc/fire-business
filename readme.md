@@ -3,7 +3,6 @@
 ## Usage
 
 #### Test Environment
-(_This is using data from a fake fire feature class. It will be more helpful when it is hooked up to a real database._)
 
 - [Image generation and shapefile zip upload](http://maps.ffsl.utah.gov/arcgis/rest/services/Staging/FireToolbox/GPServer)
 - [Extract Intersection service](http://maps.ffsl.utah.gov/arcgis/rest/services/Staging/FireAreas/MapServer/exts/FireBusinessSoe/ExtractIntersections)
