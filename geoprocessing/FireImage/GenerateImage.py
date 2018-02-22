@@ -11,7 +11,7 @@ from os.path import dirname, join
 import arcpy
 
 path_to_mxd = join(dirname(__file__), 'FireAreas.mxd')
-image_path = join(arcpy.env.scratchFolder, 'map_export.png')
+image_path = join(arcpy.env.scratchFolder, 'fire.png')
 
 
 def main(project_id, width, height):
