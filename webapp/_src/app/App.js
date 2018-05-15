@@ -56,6 +56,7 @@ define([
         baseClass: 'app',
         incidentId: null,
         quadWord: null,
+        env: null,
 
         // childWidgets: Object[]
         //      container for holding custom child widgets
@@ -161,8 +162,8 @@ define([
             mapController.map.addLayer(this.originGraphics);
 
             all([
-                this.queryLayerFor(config.urls.origin, `id=${this.incidentId}`),
-                this.queryLayerFor(config.urls.perimeter, `id=${this.incidentId}`)
+                this.queryLayerFor(config.urls.origin.replace('${env}', this.env), `id=${this.incidentId}`),
+                this.queryLayerFor(config.urls.perimeter.replace('${env}', this.env), `id=${this.incidentId}`)
             ]).then((items) => this.displayFireGeometries(items));
         },
         queryLayerFor(url, expression) {

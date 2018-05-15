@@ -23,8 +23,8 @@ define([
         version: '1.0.1',
 
         urls: {
-            origin: gisServerBaseUrl + '/arcgis/rest/services/Staging/FireOrigin/MapServer/0',
-            perimeter: gisServerBaseUrl + '/arcgis/rest/services/Staging/BurnArea/MapServer/0',
+            origin: gisServerBaseUrl + '/arcgis/rest/services/${env}/FireOrigin/MapServer/0',
+            perimeter: gisServerBaseUrl + '/arcgis/rest/services/${env}/BurnArea/MapServer/0',
             landown: 'https://gis.trustlands.utah.gov/server/' +
                      '/rest/services/Ownership/UT_SITLA_Ownership_LandOwnership_WM/FeatureServer/0'
         },
