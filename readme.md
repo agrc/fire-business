@@ -34,9 +34,10 @@
 1. Right click on a result and select share as service
 1. Publish the service as: `FireBusiness/FireToolbox`
 1. Add the result of the other GP 
-1. Asynchronous
 1. Allow Uploads
+1. Synchronous
 1. Message Level should be at least `Warning`. This is required to allow error message to be properly displayed from within the app.
+1. Pooling `0`-`3` `300`, `30`, `300`
 
 **Make sure the mxd and all py files were published**
 
