@@ -5,16 +5,24 @@ ZipToDatabase
 ----------------------------------
 Given a .zip file with a shapefile, validate it, and then returns the feature as a graphic
 '''
-from Database import store_geometry_for
 from os.path import join
 from zipfile import ZipFile
+
 import arcpy
+from Database import store_geometry_for
 
 required_files = ['shp', 'dbf', 'prj', 'shx']
 utm = arcpy.SpatialReference(26912)
 
+arcpy.env.outputZFlag = 'Disabled'
+arcpy.env.outputMFlag = 'Disabled'
+
 
 def extract_then_load(pk, zfilepath, test_method=None):
+    strip_excess = False
+    stripz_output = None
+    messages = []
+
     #: open zip file and get paths
     arcpy.AddMessage('uploaded {}.'.format(zfilepath))
     zfile = ZipFile(zfilepath)
@@ -50,7 +58,8 @@ def extract_then_load(pk, zfilepath, test_method=None):
         arcpy.AddError('Incorrect shape type of {}. Fire perimeters are polygons.'.format(described.shapeType))
         raise Exception('Incorrect shape type of {}. Fire perimeters are polygons.'.format(described.shapeType))
 
-    messages = []
+    if described.hasZ or described.hasM:
+        strip_excess = True
 
     arcpy.AddMessage('reprojecting if necessary')
     #: reproject if necessary
@@ -62,6 +71,13 @@ def extract_then_load(pk, zfilepath, test_method=None):
         messages.append('Reprojected data from {} to {}'.format(input_sr.factoryCode, utm.factoryCode))
         reprojected_fc = '{}/project'.format(arcpy.env.scratchGDB)
         shapefile = arcpy.Project_management(shapefile, reprojected_fc, utm)
+
+    arcpy.AddMessage('Removing m and z if necessary')
+    if strip_excess and input_sr.name == utm.name:
+        arcpy.AddMessage('Removing m and z')
+
+        stripz_output = 'in_memory/stripz'
+        shapefile = arcpy.management.CopyFeatures(shapefile, stripz_output)
 
     arcpy.AddMessage('unioning all shapes')
     #: union all shapes in shapefile
@@ -88,6 +104,9 @@ def extract_then_load(pk, zfilepath, test_method=None):
     #: delete temp data
     if reprojected_fc is not None and arcpy.Exists(reprojected_fc):
         arcpy.Delete_management(reprojected_fc)
+
+    if stripz_output is not None and arcpy.Exists(stripz_output):
+        arcpy.Delete_management(stripz_output)
 
     if arcpy.Exists(zfile_folder):
         arcpy.Delete_management(zfile_folder)
