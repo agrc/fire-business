@@ -13,7 +13,7 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-es2015-without-strict": "0.0.4",
-    "dojo": "^1.11.2",
+    "dojo": "^1.16.5",
     "eslint": "^4.10.0",
     "eslint-config-agrc": "^1.2.0",
     "eslint-plugin-html": "^3.2.2",
