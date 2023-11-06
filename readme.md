@@ -1,7 +1,7 @@
 # Fire Business System Integration
 
-[!WARNING]
-This integration is no longer in use
+> [!WARNING]
+> This integration is no longer in use
 
 ## Usage
 
